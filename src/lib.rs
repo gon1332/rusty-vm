@@ -33,7 +33,7 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
     let mut vm = RustVM::new(parse(&contents));
 
     while vm.running == true {
-        vm.print_status();
+        // vm.print_status();
         let instr = vm.fetch();
         vm.decode(&instr);
         vm.step();
