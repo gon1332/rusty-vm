@@ -1,24 +1,21 @@
-mod vm;
-use vm::RustVM;
-use vm::defs::Register;
-use vm::instruction::Instruction;
+extern crate rusty_vm;
+
+use std::env;
+use std::process;
+
+use rusty_vm::Config;
 
 fn main() {
-    let program = vec![
-        Instruction::push(5),
-        Instruction::push(6),
-        Instruction::add(),
-        Instruction::pop(),
-        Instruction::set(Register::A, 23),
-        Instruction::halt(),
-    ];
 
-    let mut vm = RustVM::new(program);
+    let args: Vec<String> = env::args().collect();
 
-    while vm.running == true {
-        // vm.print_status();
-        let instr = vm.fetch();
-        vm.decode(&instr);
-        vm.step();
+    let config = Config::new(&args).unwrap_or_else(|err| {
+        println!("Problem parsing argumets: {}", err);
+        process::exit(1);
+    });
+
+    if let Err(e) = rusty_vm::run(config) {
+        println!("Application error: {}", e);
+        process::exit(1);
     }
 }

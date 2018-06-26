@@ -1,5 +1,6 @@
 use vm::defs::{Register, Opcode};
 
+#[derive(Debug)]
 #[derive(Copy, Clone)]
 pub struct Instruction {
     opcode: Opcode,
@@ -39,5 +40,13 @@ impl Instruction {
 
     pub fn halt() -> Instruction {
         Instruction { opcode: Opcode::HLT, register: None, operand: None }
+    }
+}
+
+impl PartialEq for Instruction {
+    fn eq(&self, other: &Instruction) -> bool {
+        self.opcode == other.opcode
+            && self.register == other.register
+            && self.operand == self.operand
     }
 }
