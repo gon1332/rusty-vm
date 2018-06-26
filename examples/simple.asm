@@ -1,5 +1,5 @@
 push 5
 push 6
-add
+add     ; add 5 and 6
 pop
-halt
+halt    ; Stop the vm
