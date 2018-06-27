@@ -64,6 +64,12 @@ pub fn parse(contents: &str) -> Vec<Instruction> {
             let operand  = v[2].parse::<i32>().unwrap();
             program.push(Instruction::set(register, operand));
         }
+        else if line.contains("mov") {
+            let v: Vec<&str> = line.split(' ').collect();
+            let register_a = v[1].parse::<Register>().unwrap();
+            let register_b = v[2].parse::<Register>().unwrap();
+            program.push(Instruction::mov(register_a, register_b));
+        }
         else if line.contains("halt") {
             program.push(Instruction::halt());
         }
@@ -116,6 +122,17 @@ mod test {
     fn set_instruction() {
         let contents = "set A 3";
         let golden = vec![Instruction::set(Register::A, 23)];
+
+        assert_eq!(
+            golden,
+            parse(contents)
+        );
+    }
+
+    #[test]
+    fn mov_instruction() {
+        let contents = "mov A C";
+        let golden = vec![Instruction::mov(Register::A, Register::C)];
 
         assert_eq!(
             golden,

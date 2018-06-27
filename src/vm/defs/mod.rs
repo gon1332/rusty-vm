@@ -8,6 +8,7 @@ pub enum Opcode {
     ADD,
     POP,
     SET,
+    MOV,
     HLT,
 }
 

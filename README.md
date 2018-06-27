@@ -14,11 +14,12 @@ rusty-vm is an educational project for me to learn Rust.
 
 #### ISA
 ~~~asm
-    push <i32>      ; push <i32> value to stack
-    add             ; pop the two top values from stack and push the result
-    pop             ; pop the top value from the stack and print the value
-    set <reg> <i32> ; set register <reg> with the <i32> value
-    halt            ; stop the execution of the virtual machine
+    push <i32>        ; push <i32> value to stack
+    add               ; pop the two top values from stack and push the result
+    pop               ; pop the top value from the stack and print the value
+    set <reg> <i32>   ; set register <reg> with the <i32> value
+    mov <rega> <regb> ; move contents of register <regb> to <rega>
+    halt              ; stop the execution of the virtual machine
 ~~~
 
 

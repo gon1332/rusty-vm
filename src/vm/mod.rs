@@ -75,7 +75,7 @@ impl RustVM {
                 self.stack.push(result);
             }
             Opcode::SET => {
-                let register = match instr.get_register() {
+                let register = match instr.get_register_a() {
                     Some(register) => register,
                     None => panic!("invalid instruction: set should have a register")
                 };
@@ -84,6 +84,17 @@ impl RustVM {
                     None => panic!("invalid instruction: set should have an operand")
                 };
                 self.registers[register as usize] = operand;
+            }
+            Opcode::MOV => {
+                let register_a = match instr.get_register_a() {
+                    Some(register) => register,
+                    None => panic!("invalid instruction: mov should have a destination register")
+                };
+                let register_b = match instr.get_register_b() {
+                    Some(register) => register,
+                    None => panic!("invalid instruction: mov should have a source register")
+                };
+                self.registers[register_a as usize] = self.registers[register_b as usize];
             }
         }
     }
