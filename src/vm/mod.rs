@@ -55,8 +55,12 @@ impl RustVM {
                 self.stack.push(operand);
             }
             Opcode::POP => {
+                let register = match instr.get_register_a() {
+                    Some(register) => register,
+                    None => panic!("invalid instruction: pop <reg>")
+                };
                 match self.stack.pop() {
-                    Some(value) => { },
+                    Some(value) => { self.registers[register as usize] = value; },
                     None => panic!("stack error: Pop on empty stack")
                 };
             }
@@ -65,7 +69,6 @@ impl RustVM {
                     Some(value) => value,
                     None => panic!("stack error: Pop on empty stack")
                 };
-
                 let value_b = match self.stack.pop() {
                     Some(value) => value,
                     None => panic!("stack error: Pop on empty stack")

@@ -56,7 +56,9 @@ pub fn parse(contents: &str) -> Vec<Instruction> {
             program.push(Instruction::add());
         }
         else if line.contains("pop") {
-            program.push(Instruction::pop());
+            let v: Vec<&str> = line.split(' ').collect();
+            let register = v[1].parse::<Register>().unwrap();
+            program.push(Instruction::pop(register));
         }
         else if line.contains("set") {
             let v: Vec<&str> = line.split(' ').collect();
@@ -114,8 +116,8 @@ mod test {
 
     #[test]
     fn pop_instruction() {
-        let contents = "pop";
-        let golden = vec![Instruction::pop()];
+        let contents = "pop A";
+        let golden = vec![Instruction::pop(Register::A)];
 
         assert_eq!(
             golden,

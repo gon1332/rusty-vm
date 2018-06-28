@@ -35,8 +35,8 @@ impl Instruction {
         Instruction { opcode: Opcode::ADD, register_a: None, register_b: None, operand: None }
     }
 
-    pub fn pop() -> Instruction {
-        Instruction { opcode: Opcode::POP, register_a: None, register_b: None, operand: None }
+    pub fn pop(register: Register) -> Instruction {
+        Instruction { opcode: Opcode::POP, register_a: Some(register), register_b: None, operand: None }
     }
 
     pub fn set(register: Register, operand: i32) -> Instruction {
