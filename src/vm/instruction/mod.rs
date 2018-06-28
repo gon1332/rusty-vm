@@ -50,6 +50,11 @@ impl Instruction {
     pub fn halt() -> Instruction {
         Instruction { opcode: Opcode::HLT, register_a: None, register_b: None, operand: None }
     }
+
+    pub fn log(register: Register) -> Instruction {
+        Instruction { opcode: Opcode::LOG, register_a: Some(register), register_b: None, operand: None }
+    }
+
 }
 
 impl PartialEq for Instruction {

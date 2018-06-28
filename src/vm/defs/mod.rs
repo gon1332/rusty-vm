@@ -10,6 +10,7 @@ pub enum Opcode {
     SET,
     MOV,
     HLT,
+    LOG,
 }
 
 #[allow(non_camel_case_types)]

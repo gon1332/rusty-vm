@@ -56,7 +56,7 @@ impl RustVM {
             }
             Opcode::POP => {
                 match self.stack.pop() {
-                    Some(value) => { println!("Popped {}", value) },
+                    Some(value) => { },
                     None => panic!("stack error: Pop on empty stack")
                 };
             }
@@ -95,6 +95,12 @@ impl RustVM {
                     None => panic!("invalid instruction: mov should have a source register")
                 };
                 self.registers[register_a as usize] = self.registers[register_b as usize];
+            }
+            Opcode::LOG => {
+                match instr.get_register_a() {
+                    Some(register) => println!("{}", self.registers[register as usize]),
+                    None => panic!("invalid instruction: log <reg>")
+                }
             }
         }
     }

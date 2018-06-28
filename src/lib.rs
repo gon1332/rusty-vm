@@ -73,6 +73,11 @@ pub fn parse(contents: &str) -> Vec<Instruction> {
         else if line.contains("halt") {
             program.push(Instruction::halt());
         }
+        else if line.contains("log") {
+            let v: Vec<&str> = line.split(' ').collect();
+            let register = v[1].parse::<Register>().unwrap();
+            program.push(Instruction::log(register));
+        }
         else {
             panic!("Illegal Instruction");
         }
@@ -144,6 +149,17 @@ mod test {
     fn halt_instruction() {
         let contents = "halt";
         let golden = vec![Instruction::halt()];
+
+        assert_eq!(
+            golden,
+            parse(contents)
+        );
+    }
+
+    #[test]
+    fn log_instruction() {
+        let contents = "log A";
+        let golden = vec![Instruction::log(Register::A)];
 
         assert_eq!(
             golden,
